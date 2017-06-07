@@ -22,37 +22,94 @@ class App extends Component {
       this.checkPassport = this.checkPassport.bind(this);
       this.changeColor = this.changeColor.bind(this);
       this.random = this.random.bind(this);
+      this.checkForGood = this.checkForGood.bind(this);
       this.letter = this.letter.bind(this);
+
+          let broken = this.state.word.split('')
+            let uscore =[];
+
+           broken.forEach((elem, i)=>{
+
+                uscore.push('_')
+            })
+            console.log(uscore);
+
+           let uscoreJoined = uscore.join('')
+            console.log(uscoreJoined)
+            this.state.underscored = uscoreJoined;
+      
   }
+   checkForGood(letter,arr,arr2) {
+    let matchIndexes = [];
+    
+    console.log(letter)
+    console.log(arr)
+    console.log(arr2)
+    arr2 = arr2.split('')    
+                      arr.forEach( (el,i) => {
+
+                              if(el == letter ){
+
+                                 matchIndexes.push(i)
+                              }
+                            
+                      })
+                        matchIndexes.forEach( (e,i) => {
+
+                           console.log(e);
+                           arr2[e] = letter;
+
+                        })
+                        console.log(arr2);
+                            arr2 = arr2.join('');
+
+                        this.setState({ underscored: arr2});
+
+   } 
+      
     letter(e) {
 
-        console.log(this);
-       let letter = e.target.innerHTML.toLowerCase()
-        
-        this.state.picked.push(letter);
+        // /console.log(this);
+         let letter = e.target.innerHTML.toLowerCase()
+         this.state.picked.push(this.letter);
+              let word = this.state.word.split('');
+              let underscores = this.state.underscored
+                     if(word.includes(letter)){
 
-            console.log(this.state.underscored.split(''))
-        let word = this.state.word.split('');
+                        this.checkForGood(letter,word,underscores)
+                     }
+        //         underscores1 = this.state.underscored;
 
-          word.forEach(function(elem,i){
+        // let underscores1 = underscores1.split('');
+        //         console.log(underscores1)
+        // let word = this.state.word.split('');
+        //     if(word.includes(letter)){
 
-            console.log(elem)
-            //console.log(letter.toLowerCase())
-              if(elem == letter){
-                    console.log("Match Letter")
-                  //  index matter
-                    // let split = this.state.underscored.split('')
-                    //    split[i] = letter;
-                    //     this.state.underscored =  split
-              } else {
+        //       console.log('Yes')
+        //           word.forEach((el,i) => {
 
-                 // console.log(" Not Match Letter")
-              }
-      
-          })
+        //               if(word[i] == letter){
+        //                 matchIndexes.push(i)
+        //               }
+                      
 
+        //           })
 
-          
+        //     } else {
+
+        //       console.log('nope')
+        //     }
+        //     if(matchIndexes.length > 0){
+
+        //         matchIndexes.forEach(function(el,i){
+        //             underscores1[el] = letter
+                    
+        //         })
+        //           this.state.underscored  = underscores1
+
+        //             this.setState({ underscored: this.state.underscored});
+        //     }
+            
     }
    check() {
 
@@ -115,20 +172,8 @@ class App extends Component {
             }
         // setInterval(this.random, 100);
         
-          console.log(this.state.word);
-          let broken = this.state.word.split('')
-            console.log(broken)
-            let uscore =[];
+       
 
-           broken.forEach((elem, i)=>{
-
-                uscore.push('_')
-            })
-            console.log(uscore);
-
-           let uscoreJoined = uscore.join('')
-            console.log(uscoreJoined)
-            this.state.underscored = uscoreJoined;
 
 
        // this.random()
