@@ -24,6 +24,7 @@ class App extends Component {
       this.random = this.random.bind(this);
       this.checkForGood = this.checkForGood.bind(this);
       this.letter = this.letter.bind(this);
+      this.checkGame = this.checkGame.bind(this);
 
           let broken = this.state.word.split('')
             let uscore =[];
@@ -37,9 +38,19 @@ class App extends Component {
            let uscoreJoined = uscore.join('')
             console.log(uscoreJoined)
             this.state.underscored = uscoreJoined;
-      
+            
   }
+checkGame(){
+
+                          if(this.state.underscored == this.state.word){
+
+                          alert("winner")
+                        }
+}
+
+
    checkForGood(letter,arr,arr2) {
+
     let matchIndexes = [];
     
     console.log(letter)
@@ -65,13 +76,18 @@ class App extends Component {
 
                         this.setState({ underscored: arr2});
 
+
+                         
    } 
       
     letter(e) {
 
+      this.checkGame()
         // /console.log(this);
          let letter = e.target.innerHTML.toLowerCase()
-         this.state.picked.push(this.letter);
+         this.state.picked.push(letter);
+
+                  this.setState({ picked : this.state.picked })
               let word = this.state.word.split('');
               let underscores = this.state.underscored
                      if(word.includes(letter)){
@@ -190,7 +206,23 @@ class App extends Component {
 
   
   render() {
+          const letters = (() => {
+  const caps = [...Array(26)].map((val, i) => String.fromCharCode(i + 65));
+  return caps.concat(caps.map(letter => letter.toLowerCase()));
+})();
+//bttons
+let x = document.getElementsByClassName("bttons");
 
+
+    
+     letters.forEach((el,i)=>{
+        let node = `<button onClick={this.letter} className ="btn btn-default">  ${el}  </button>`
+        
+
+     })
+
+
+    //let letterstr = this.state.picked.join('')
   let style = {
     margin: '0.5em',
     paddingLeft: 0,
@@ -211,6 +243,9 @@ class App extends Component {
         <h4>properties(props) -> they are from pops</h4>
           
           <p style = {style}>Hello {this.props.yourName}</p>
+
+
+                      <h4> Letters Chosen: {this.state.picked.join(',')}</h4>
             <h3>Your age is {this.state.age}</h3>
 
                       <h3> {this.state.underscored}</h3>
@@ -225,7 +260,12 @@ class App extends Component {
         <button onClick={this.takeAge}> Take Age</button>
         <button onClick={this.checkPassport}> PASSPORT </button>
         <button onClick={this.changeColor}> Colors</button>
-    <div className ="btn-group btn-group-sm">
+
+ 
+    <div className ="btn-group btn-group-sm bttons">
+
+
+
       <button onClick={this.letter} className ="btn btn-default">A</button>
       <button onClick={this.letter} className ="btn btn-default">B</button>
       <button onClick={this.letter} className ="btn btn-default">C</button>
